@@ -1,4 +1,5 @@
 /avatars
+.env
 
 # Logs
 logs
