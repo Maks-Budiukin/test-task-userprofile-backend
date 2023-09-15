@@ -12,18 +12,18 @@ https://github.com/Maks-Budiukin/test-task-userprofile-backend
 
 2. Ендпоінти:
 
-@POST /api/user/register - створення користувача
-@GET /api/user/activate/:token - верифікація емейла
-@POST /api/user/login - логін
-@GET /api/user/curret - рефреш користувача (щоб не вилітав при обновленні сторінки, за умови, що токен на фронті персистять
-@PATCH /api/user/upadte/:id - редагування профілю
+@POST /api/user/register - створення користувача  
+@GET /api/user/activate/:token - верифікація емейла  
+@POST /api/user/login - логін  
+@GET /api/user/curret - рефреш користувача (щоб не вилітав при обновленні сторінки, за умови, що токен на фронті персистять  
+@PATCH /api/user/upadte/:id - редагування профілю  
 @GET /api/user/logout - до побачення
 
 3. Ключові ліби:
 
-Passport + jwt - аутентифікація
-nodemailer - спам на пошту
-class-validator - валідація
+Passport + jwt - аутентифікація  
+nodemailer - спам на пошту  
+class-validator - валідація  
 sharp - обробка зображень
 
 4. Зазвичай виношу редагування юзера в окремий модуль, щоб "не смітити" в аутентифікації, але в данному випадку це, як на мене, не має сенсу. До того ж, в рамках тестового працюємо лише з одною моделькою, то ж вирішив об'єднання в один модуль практичним.
