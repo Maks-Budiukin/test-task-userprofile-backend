@@ -5,6 +5,16 @@ export const mongoConfig = async (
   configService: ConfigService,
 ): Promise<MongooseModuleFactoryOptions> => {
   return {
-    uri: configService.get('MONGO_STRING'),
+    uri:
+      'mongodb+srv://' +
+      configService.get('MONGO_LOGIN') +
+      ':' +
+      configService.get('MONGO_PASSWORD') +
+      '@' +
+      configService.get('MONGO_HOST') +
+      '/' +
+      configService.get('MONGO_DATABASE') +
+      '?' +
+      configService.get('MONGO_OPTIONS'),
   };
 };
