@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JWTStrategy } from 'src/strategies/jwt.strategy';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     }),
     PassportModule,
     MailerModule,
+    FilesModule,
   ],
   controllers: [UserController],
   providers: [UserService, JWTStrategy],

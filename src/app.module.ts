@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { mongoConfig } from './configs/mongo.config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { nodemailerConfig } from './configs/nodemailer.config';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { nodemailerConfig } from './configs/nodemailer.config';
       inject: [ConfigService],
       useFactory: nodemailerConfig,
     }),
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

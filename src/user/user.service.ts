@@ -14,6 +14,7 @@ import { JwtService } from '@nestjs/jwt';
 import { MailerService } from '@nestjs-modules/mailer';
 import { UserResponseDto } from './dto/user-response.dto';
 import { UserUpdateDto } from './dto/user-update.dto';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class UserService {
@@ -21,6 +22,7 @@ export class UserService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
+    private readonly filesService: FilesService,
   ) {}
 
   sendAuthEmail(): void {
@@ -146,15 +148,26 @@ export class UserService {
     return foundUser;
   }
 
-  async updateUser(dto: UserUpdateDto, user: UserResponseDto): Promise<User> {
-    if (Object.keys(dto).length === 0) {
-      throw new BadRequestException('At least one field required!');
+  async updateUser(
+    dto: UserUpdateDto,
+    user: UserResponseDto,
+    file: Express.Multer.File,
+  ): Promise<User> {
+    if (Object.keys(dto).length === 0 && !file) {
+      throw new BadRequestException('At least one field is required!');
     }
 
-    const userToUpdate = await this.userModel.findById(user._id);
+    const userToUpdate: UserResponseDto = await this.userModel.findById(
+      user._id,
+    );
 
     if (!userToUpdate) {
       throw new NotFoundException('No such user!');
+    }
+
+    if (file) {
+      const avatar = await this.filesService.changeAvatar(file, userToUpdate);
+      await this.userModel.findByIdAndUpdate(user._id, { avatar });
     }
 
     const updatedUser = await this.userModel
