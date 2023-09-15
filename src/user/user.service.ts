@@ -25,15 +25,6 @@ export class UserService {
     private readonly filesService: FilesService,
   ) {}
 
-  sendAuthEmail(): void {
-    this.mailerService.sendMail({
-      to: 'reg.zlodeyushka@gmail.com', // list of receivers
-      from: 'nodemailer.maxtest@gmail.com', // sender address
-      subject: 'Testing Nest MailerModule ✔', // Subject line
-      text: 'welcome', // plaintext body
-    });
-  }
-
   async findUser(email: string): Promise<User> {
     const user = await this.userModel.findOne({ email });
     return user;

@@ -30,7 +30,6 @@ export class FilesService {
       throw new BadRequestException('Please, upload only image files!');
     }
 
-    // const userFolder = user._id;
     const uploadFolred = `${path}/avatars/`;
 
     ensureDir(uploadFolred);
