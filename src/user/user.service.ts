@@ -62,19 +62,14 @@ export class UserService {
   }
 
   public sendVerificationEmail(token: string, email: string): void {
-    console.log('TOKEN', token);
-    console.log('EMAIL', email);
     this.mailerService
       .sendMail({
-        to: `${email}`, // list of receivers
-        from: 'noreply', // sender address
-        subject: 'Testing Nodemailer', // Subject line
-        text: `localhost:4000/api/user/${token}`, // plaintext body
-        // html: '<b>welcome</b>',
+        to: `${email}`,
+        from: 'noreply',
+        subject: 'Testing Nodemailer',
+        text: `To activate your account, please, follow this link: http://localhost:4000/api/user/activate/${token}`,
       })
-      .then((success) => {
-        console.log(success);
-      })
+      .then((success) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -116,7 +111,6 @@ export class UserService {
   }
 
   async loginUser(user: UserResponseDto): Promise<User> {
-    console.log('USER IN LOGIN', user);
     const token = await this.jwtService.signAsync(user._id.toString());
     const loggedUser = await this.userModel
       .findByIdAndUpdate(user._id, { token }, { new: true })

@@ -51,8 +51,6 @@ export class UserController {
     @GetUser() user: UserResponseDto,
     @Req() request: Request,
   ): Promise<void> {
-    console.log('USER', user);
-    console.log('REQ HEADERS', request.headers);
     return await this.userService.logoutUser(user);
   }
 
