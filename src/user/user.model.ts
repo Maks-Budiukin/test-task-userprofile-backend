@@ -7,6 +7,11 @@ export class Avatar {
   small: string;
 }
 
+export enum Status {
+  PENDING = 'pending',
+  ACTIVE = 'active',
+}
+
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({ versionKey: false, timestamps: true })
@@ -34,6 +39,9 @@ export class User {
 
   @Prop({ default: null })
   token: string;
+
+  @Prop({ default: Status.PENDING })
+  status: Status;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
